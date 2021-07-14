@@ -4,12 +4,12 @@ import Box from '../src/components/Box'
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons'
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
 
-function ProfileSidebar(propriedades){
-  console.log(propriedades);
+function ProfileSidebar(propriedades) {
   return (
     <Box as="aside">
-      <img src={`https://github.com/${propriedades.githubUser}.png`} style={{ borderRadius: '8px' }} /> 
+      <img src={`https://github.com/${propriedades.githubUser}.png`} style={{ borderRadius: '8px' }} />
       <hr />
+
       <p>
         <a className="boxLink" href={`https://github.com/${propriedades.githubUser}`}>
           @{propriedades.githubUser}
@@ -17,7 +17,7 @@ function ProfileSidebar(propriedades){
       </p>
       <hr />
 
-      <AlurakutProfileSidebarMenuDefault />     
+      <AlurakutProfileSidebarMenuDefault />
     </Box>
   )
 }
@@ -43,7 +43,7 @@ export default function Home() {
     'juunegreiros', 
     'rafaballerini', 
     'marcobrunodev',
-    'felipefialho' 
+    'felipefialho',
   ]
 
   return (
@@ -61,50 +61,49 @@ export default function Home() {
       <div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
         <Box>
           <h1 className="title">
-            Bem vindo(a)
+            Bem vindo(a) {usuarioAleatorio}
           </h1>
           <OrkutNostalgicIconSet />
         </Box>
 
         <Box>
-          <h2 className="subTitle">O que você deseja fazer?</h2>
-          <form onSubmit={function handleCriaComunidade(e){
-            e.preventDefault();
-            const dadosDoForm = new FormData(e.target);
+            <h2 className="subTitle">O que você deseja fazer?</h2>
+            <form onSubmit={function handleCriaComunidade(e) {
+                e.preventDefault();
+                const dadosDoForm = new FormData(e.target);
 
-            console.log('Campo: ', dadosDoForm.get('title'));
-            console.log('Campo: ', dadosDoForm.get('image'));
+                console.log('Campo: ', dadosDoForm.get('title'));
+                console.log('Campo: ', dadosDoForm.get('image'));
 
-            const comunidade = {
-              id: new Date().toISOString(),
-              title: dadosDoForm.get('title'),
-              image: dadosDoForm.get('image'),
-            }
-            const comunidadesAtualizadas = [...comunidades, comunidade];
-            setComunidades(comunidadesAtualizadas)
-            console.log(comunidades);
-          }}>
-            <div>
-              <input 
-                placeholder="Qual vai ser o nome da sua comunidade?" 
-                name="title" 
-                aria-label="Qual vai ser o nome da sua comunidade?" 
-                type="text"
-              />
-            </div>
-            <div>
-              <input 
-                placeholder="Coloque uma URL para usarmos de capa" 
-                name="image" 
-                aria-label="Coloque uma URL para usarmos de capa" 
-              />
-            </div>
+                const comunidade = {
+                  id: new Date().toISOString(),
+                  title: dadosDoForm.get('title'),
+                  image: dadosDoForm.get('image'),
+                }
+                const comunidadesAtualizadas = [...comunidades, comunidade];
+                setComunidades(comunidadesAtualizadas)
+            }}>
+              <div>
+                <input
+                  placeholder="Qual vai ser o nome da sua comunidade?"
+                  name="title"
+                  aria-label="Qual vai ser o nome da sua comunidade?"
+                  type="text"
+                  />
+              </div>
+              <div>
+                <input
+                  placeholder="Coloque uma URL para usarmos de capa"
+                  name="image"
+                  aria-label="Coloque uma URL para usarmos de capa"
+                />
+              </div>
 
-            <button>
-              Criar comunidade
-            </button>
-          </form>  
-        </Box>
+              <button>
+                Criar comunidade
+              </button>
+            </form>
+          </Box>
       </div>
 
       <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
@@ -128,7 +127,7 @@ export default function Home() {
   
         <ProfileRelationsBoxWrapper>
           <h2 className="smallTitle">
-            Pessoas da Comunidade ({pessoasFavoritas.length})
+            Amigos ({pessoasFavoritas.length})
           </h2>
 
           <ul>

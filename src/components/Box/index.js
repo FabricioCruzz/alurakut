@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Box = styled.div`
   background: #ffffff;
@@ -34,14 +34,14 @@ const Box = styled.div`
     margin-bottom: 20px;
   }
 
-  .hr {
+  hr {
       margin-top: 12px;
       margin-bottom: 8px;
       border-color: transparent;
       border-bottom-color: #ecf2fa;
   }
 
-  .input {
+  input {
       width: 100%;
       background-color: #f4f4f4;
       color: #333333;
