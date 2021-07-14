@@ -49,13 +49,14 @@ const Box = styled.div`
       padding: 14px 16px;
       margin-bottom: 14px;
       border-radius: 10000px;
-      ::placeholder{
-        color: #333333;
-        opacity: 1;
-      }
+      ::placeholder {
+      color: #333333;
+      opacity: 1;
+    }
   }
 
   button {
+      margin-top: 10px;
       border: 0;
       padding: 8px 12px;
       color: #ffffff;
