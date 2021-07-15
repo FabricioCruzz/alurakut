@@ -54,7 +54,8 @@ export function AlurakutMenu({ githubUser }) {
 }
 AlurakutMenu.Wrapper = styled.header`
   width: 100%;
-  background-color: #308BC5;
+  background-color: black;
+  opacity: 85%;
   .alurakutMenuProfileSidebar {
     background: white;
     position: fixed;
@@ -93,7 +94,8 @@ AlurakutMenu.Wrapper = styled.header`
     }
   }
   .container {
-    background-color: #308BC5;
+    background-color: black;
+    opacity: 85%;
     padding: 7px 16px;
     max-width: 1110px;
     margin: auto;
@@ -140,7 +142,7 @@ AlurakutMenu.Wrapper = styled.header`
     }
     input {
       color: #ffffff;
-      background: #5579A1;
+      background: #ffffff;
       padding: 10px 42px;
       border: 0;
       background-image: url(${`${BASE_URL}/icons/search.svg`});
@@ -149,7 +151,7 @@ AlurakutMenu.Wrapper = styled.header`
       border-radius: 1000px;
       font-size: 12px;
       ::placeholder {
-        color: #ffffff;
+        color: black;
         opacity: 1;
       }
     } 
@@ -262,7 +264,7 @@ export function OrkutNostalgicIconSet(props) {
       {[
         { name: 'Confiável', slug: 'confiavel', icon: 'smile' },
         { name: 'Legal', slug: 'legal', icon: 'cool' },
-        { name: 'Sexy', slug: 'sexy', icon: 'heart' },
+        { name: 'Amigável', slug: 'amigavel', icon: 'heart' },
       ].map(({ name, slug, icon }) => {
         const total = props[slug] ? props[slug] : 2;
         return (

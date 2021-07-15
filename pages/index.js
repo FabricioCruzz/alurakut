@@ -22,6 +22,29 @@ function ProfileSidebar(propriedades) {
   )
 }
 
+function ProfileRelationsBox(propriedades){
+
+  return (
+    <ProfileRelationsBoxWrapper>
+        <h2 className="smallTitle">
+            {propriedades.title} ({propriedades.items.length})
+        </h2>
+        {/* <ul>
+          {propriedades.items.map((itemAtual) => {
+            return (
+              <li key={itemAtual.id}>
+                <a href={`https://github.com/${itemAtual.avatar_url}.png`}>
+                  <img src={itemAtual.avatar_url} /> 
+                  <span>{itemAtual}</span>
+                </a>
+              </li>
+            )
+          })}
+        </ul> */}
+        </ProfileRelationsBoxWrapper>
+  )
+}
+
 export default function Home() {
 
   const usuarioAleatorio = 'FabricioCruzz';
@@ -33,7 +56,7 @@ export default function Home() {
   // const comunidades = comunidades[0];
   // const alteradorDeComunidades/setComunidades = comunidades[1];
   
-  console.log('Nosso teste', );
+  // console.log('Nosso teste', );
   // const comunidades = [`Alurakut`]
   
   const pessoasFavoritas = [ 
@@ -45,6 +68,24 @@ export default function Home() {
     'marcobrunodev',
     'felipefialho',
   ]
+  const [seguidores, setSeguidores] = React.useState([]);
+  React.useEffect(function(){
+    fetch('https://api.github.com/users/FabricioCruzz/followers')
+    .then(function (respostaDoServidor){
+      return respostaDoServidor.json();
+    })
+    .then(function(respostaCompleta){
+      setSeguidores(respostaCompleta);
+    })
+  }, [])
+
+  console.log('seguidores antes do return', seguidores)
+
+  function getNumberRandom(min, max){
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min) + min);
+  }
 
   return (
 
@@ -63,7 +104,16 @@ export default function Home() {
           <h1 className="title">
             Bem vindo(a) {usuarioAleatorio}
           </h1>
-          <OrkutNostalgicIconSet />
+          <OrkutNostalgicIconSet
+            recados={getNumberRandom(1, 100)}
+            fotos={getNumberRandom(1, 100)}
+            videos={getNumberRandom(1, 100)}
+            fas={getNumberRandom(1, 100)}
+            mensagens={getNumberRandom(1, 100)}
+            confiavel={getNumberRandom(1, 3)}
+            legal={getNumberRandom(1, 3)}
+            amigavel={getNumberRandom(1, 3)}
+          />
         </Box>
 
         <Box>
@@ -106,7 +156,9 @@ export default function Home() {
           </Box>
       </div>
 
-      <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
+      <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>    
+      <ProfileRelationsBox title="Seguidores" items={seguidores} />
+
         <ProfileRelationsBoxWrapper>
         <h2 className="smallTitle">
             Comunidades ({comunidades.length})

@@ -9,11 +9,12 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     font-family: sans-serif;
+    background-image: url("https://images.wallpaperscraft.com/image/forest_trees_fog_110485_1920x1080.jpg");
     background-color: #d9e6f6;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
   #__next {
@@ -33,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
 
 const theme = {
   colors: {
-    primary: '#0070f3',
+    primary: 'red',
   },
 }
 
