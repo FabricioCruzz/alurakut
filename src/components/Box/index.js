@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 const Box = styled.div`
-  background: #ffffff;
+  background: #DCDCDC;
+  opacity: 95%;
   border-radius: 8px;
 
   padding: 16px;

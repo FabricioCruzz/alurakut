@@ -23,7 +23,8 @@ export const ProfileRelationsBoxWrapper = styled(Box)`
     overflow: hidden;
     border-radius: 8px;
     span {
-      color: #FFFFFF;
+      color: #DCDCDC;
+      opacity: 95%;
       font-size: 10px;
       position: absolute;
       left: 0;
