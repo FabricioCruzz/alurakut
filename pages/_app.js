@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: sans-serif;
+    font-family: cursive;
     background-image: url("https://images.wallpaperscraft.com/image/forest_trees_fog_110485_1920x1080.jpg");
     background-color: #d9e6f6;
     background-position: center;

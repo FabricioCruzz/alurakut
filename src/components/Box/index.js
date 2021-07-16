@@ -2,8 +2,10 @@ import styled from 'styled-components';
 
 const Box = styled.div`
   background: #DCDCDC;
-  opacity: 95%;
+  opacity: 100%;
   border-radius: 8px;
+  background-color: rgba(255,255,255,0.5);
+  backdrop-filter: blur(6px);
 
   padding: 16px;
 
@@ -39,7 +41,8 @@ const Box = styled.div`
       margin-top: 12px;
       margin-bottom: 8px;
       border-color: transparent;
-      border-bottom-color: #ecf2fa;
+      border-bottom-color: #FF8C00;
+      opacity: 50%;
   }
 
   input {
@@ -62,7 +65,7 @@ const Box = styled.div`
       padding: 8px 12px;
       color: #ffffff;
       border-radius: 10000px;
-      background-color: #6f92bb;
+      background-color: #000000;
   }
 
 `;
