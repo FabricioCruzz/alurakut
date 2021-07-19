@@ -57,7 +57,7 @@ function ProfileRelationsBox(propriedades){
 
 export default function Home(props) {
 
-  const usuarioAleatorio = props.githubUser;
+  const userGithub = props.githubUser;
   const [comunidades, setComunidades] = React.useState([]);
   // const comunidades = comunidades[0];
   // const alteradorDeComunidades/setComunidades = comunidades[1];
@@ -77,7 +77,8 @@ export default function Home(props) {
   const [seguidores, setSeguidores] = React.useState([]);
   React.useEffect(function(){
     // GET
-    fetch('https://api.github.com/users/FabricioCruzz/followers')
+    const urlUserFollowers = `https://api.github.com/users/${ userGithub }/followers`;
+    fetch(urlUserFollowers)
     .then(function (respostaDoServidor){
       return respostaDoServidor.json();
     })
@@ -145,13 +146,13 @@ export default function Home(props) {
       {/* <Box style="grid-area: profileArea;"> */}
 
       <div className="profileArea" style={{ gridArea: 'profileArea' }}>
-        <ProfileSidebar githubUser={usuarioAleatorio} />
+        <ProfileSidebar githubUser={userGithub} />
       </div>
       
       <div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
         <Box>
           <h1 className="title">
-            Bem vindo(a), {usuarioAleatorio}
+            Bem vindo(a), {userGithub}
           </h1>
           <OrkutNostalgicIconSet
             recados={getNumberRandom(1, 100)}
