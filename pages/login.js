@@ -69,7 +69,7 @@ export default function LoginScreen() {
               Ainda não é membro? <br />
               <a href="/login">
                 <strong>
-                  ENTRAR JÁ
+                  CADASTRE-SE AGORA!
               </strong>
               </a>
             </p>

@@ -31,18 +31,26 @@ function ProfileRelationsBox(propriedades){
         <h2 className="smallTitle">
             {propriedades.title} ({propriedades.items.length})
         </h2>
-        {/* <ul>
-          {propriedades.items.map((itemAtual) => {
+
+        <ul>
+          {(propriedades.items).slice(0, 6).map((itemAtual) => {
             return (
               <li key={itemAtual.id}>
-                <a href={`https://github.com/${itemAtual.avatar_url}.png`}>
+                <a href={itemAtual.html_url}>
                   <img src={itemAtual.avatar_url} /> 
-                  <span>{itemAtual}</span>
+                  <span>{itemAtual.login}</span>
                 </a>
               </li>
             )
           })}
-        </ul> */}
+        </ul>
+
+        <hr />
+        <p>
+          <a className="boxLink" href={`/amigos`} >
+            Ver todos
+          </a>
+        </p>
         </ProfileRelationsBoxWrapper>
   )
 }
@@ -210,9 +218,11 @@ export default function Home(props) {
           </Box>
       </div>
 
+       // Área dos Seguidores     
       <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>    
       <ProfileRelationsBox title="Seguidores" items={seguidores} />
 
+        //Área das Comunidades
         <ProfileRelationsBoxWrapper>
         <h2 className="smallTitle">
             Comunidades ({comunidades.length})
@@ -229,15 +239,21 @@ export default function Home(props) {
             )
           })}
         </ul>
+        <hr />
+        <p>
+          <a className="boxLink" href={`/comunidades`}>
+            Ver todas
+          </a>
+        </p>
         </ProfileRelationsBoxWrapper>
   
         <ProfileRelationsBoxWrapper>
           <h2 className="smallTitle">
-            Amigos ({pessoasFavoritas.length})
+            Seguindo ({pessoasFavoritas.length})
           </h2>
 
           <ul>
-            {pessoasFavoritas.map((itemAtual) => {
+            {pessoasFavoritas.slice(0, 6).map((itemAtual) => {
               return (
                 <li key={itemAtual}>
                   <a href={`/communities/${itemAtual.id}`}>
@@ -248,6 +264,12 @@ export default function Home(props) {
               )
             })}
           </ul>
+          <hr />
+          <p>
+            <a className="boxLink" href={`/seguindo`}>
+              Ver todos
+            </a>
+          </p>
         </ProfileRelationsBoxWrapper>
 
       </div>
