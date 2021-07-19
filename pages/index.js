@@ -218,11 +218,11 @@ export default function Home(props) {
           </Box>
       </div>
 
-       // Área dos Seguidores     
+       {/* Área dos Seguidores      */}
       <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>    
       <ProfileRelationsBox title="Seguidores" items={seguidores} />
 
-        //Área das Comunidades
+        {/* Área das Comunidades */}
         <ProfileRelationsBoxWrapper>
         <h2 className="smallTitle">
             Comunidades ({comunidades.length})
