@@ -29,7 +29,7 @@ function ProfileRelationsBox(propriedades){
   return (
     <ProfileRelationsBoxWrapper>
         <h2 className="smallTitle">
-            {propriedades.title} ({propriedades.items.length})
+            {propriedades.title} ({propriedades.items.length} {/* TODO: DESCOBRIR PQ O LIMITE DE SEGUIDORES VAI ATÉ 30 */} )
         </h2>
 
         <ul>
@@ -58,6 +58,7 @@ function ProfileRelationsBox(propriedades){
 export default function Home(props) {
 
   const userGithub = props.githubUser;
+  const [recados, setRecados] = React.useState([]);
   const [comunidades, setComunidades] = React.useState([]);
   // const comunidades = comunidades[0];
   // const alteradorDeComunidades/setComunidades = comunidades[1];
@@ -100,6 +101,12 @@ export default function Home(props) {
           title
           imageUrl
           creatorSlug
+        }
+
+        allScraps {
+          id
+          from
+          message
         }
       }` })
     })
@@ -216,6 +223,73 @@ export default function Home(props) {
                 Criar comunidade
               </button>
             </form>
+          </Box>
+
+          <Box>
+            <h2 className="subTitle"> Deixe uma mensagem para { userGithub }</h2>
+            <form onSubmit={function handleCriaRecados(e) {
+              e.preventDefault();
+              const dadosDoForm = new FormData(e.target);
+
+              console.log('Campo: ', dadosDoForm.get('from'));
+              console.log('Campo: ', dadosDoForm.get('message'));
+
+              const recado = {
+                from: dadosDoForm.get('from'),
+                message: dadosDoForm.get('message')
+              }
+
+              fetch('./api/recados', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(recado)
+              })
+              .then(async(response) => {
+                const dados = await response.json();
+                const recado = dados.registroCriado;
+                const recadosAtualizados = [...recados, recado];
+                setRecados(recadosAtualizados)
+              })
+
+            }}> 
+            <div>
+              <input
+                placeholder="De: "
+                name="from"
+                aria-label="De: "
+                type="text"
+              />
+            </div>
+              <input
+                placeholder="Digite sua mensagem..."
+                name="message"
+                aria-label="Digite sua mensagem..."
+                type="text"
+              />
+              <button>
+                Enviar Recado
+              </button>
+            </form>
+          </Box>
+
+          <Box>
+          <h2 className='subTitle'>
+            Recados de {userGithub}
+          </h2>
+
+          <ul>
+            {recados.map((itemAtual) => {
+              return (
+                <li key={itemAtual.id}>
+                  {/* CRIAR UM COMPONENTE PARECIDO COM O PROFILE RELATIONS BOX
+                    FAZENDO ISSO IREI CONSEGUIR LISTAR OS RECADOS
+                  */}
+                </li>
+              )
+            })}
+          </ul>
           </Box>
       </div>
 
