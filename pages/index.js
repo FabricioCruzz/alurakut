@@ -5,6 +5,7 @@ import MainGrid from '../src/components/MainGrid'
 import Box from '../src/components/Box'
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons'
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
+import { RecadosBoxWrapper } from '../src/components/Recados';
 
 function ProfileSidebar(propriedades) {
   return (
@@ -29,7 +30,7 @@ function ProfileRelationsBox(propriedades){
   return (
     <ProfileRelationsBoxWrapper>
         <h2 className="smallTitle">
-            {propriedades.title} ({propriedades.items.length} {/* TODO: DESCOBRIR PQ O LIMITE DE SEGUIDORES VAI ATÉ 30 */} )
+            {propriedades.title} ({propriedades.items.length}) {/* TODO: DESCOBRIR PQ O LIMITE DE SEGUIDORES VAI ATÉ 30 */}
         </h2>
 
         <ul>
@@ -55,27 +56,42 @@ function ProfileRelationsBox(propriedades){
   )
 }
 
+function RecadosBox(props){
+
+  console.log('Props: ', props);
+
+  return (
+    <RecadosBoxWrapper>
+      <h2 className='subTitle'>
+            {props.title} de Alguém
+      </h2>
+
+          <ul>
+            {(props.items).map((itemAtual) => {
+              console.log('itemAtual 222: ', itemAtual);
+              return (
+                <li key={itemAtual.id}>
+                  <span> {itemAtual.from} diz: </span>  
+                  <span>{itemAtual.message} </span>
+                  {/* CRIAR UM COMPONENTE PARECIDO COM O PROFILE RELATIONS BOX
+                    FAZENDO ISSO IREI CONSEGUIR LISTAR OS RECADOS
+                  */}
+                </li>
+              )
+            })}
+          </ul>
+    </RecadosBoxWrapper>
+  )
+
+}
+
 export default function Home(props) {
 
   const userGithub = props.githubUser;
   const [recados, setRecados] = React.useState([]);
   const [comunidades, setComunidades] = React.useState([]);
-  // const comunidades = comunidades[0];
-  // const alteradorDeComunidades/setComunidades = comunidades[1];
-  
-  // console.log('Nosso teste', );
-  // const comunidades = [`Alurakut`]
-  
-  const pessoasFavoritas = [ 
-
-    'omariosouto', 
-    'peas', 
-    'juunegreiros', 
-    'rafaballerini', 
-    'marcobrunodev',
-    'felipefialho',
-  ]
   const [seguidores, setSeguidores] = React.useState([]);
+  const [seguindo, setSeguindo] = React.useState([]);
   React.useEffect(function(){
     // GET
     const urlUserFollowers = `https://api.github.com/users/${ userGithub }/followers`;
@@ -85,6 +101,15 @@ export default function Home(props) {
     })
     .then(function(respostaCompleta){
       setSeguidores(respostaCompleta);
+    })
+
+    const urlUserFollowing = `https://api.github.com/users/${ userGithub }/following`;
+    fetch(urlUserFollowing)
+    .then((respostaDoServidor) =>{
+      return respostaDoServidor.json();
+    })
+    .then((respostaCompleta) => {
+      setSeguindo(respostaCompleta);
     })
 
     // API GraphQL
@@ -102,7 +127,6 @@ export default function Home(props) {
           imageUrl
           creatorSlug
         }
-
         allScraps {
           id
           from
@@ -110,22 +134,6 @@ export default function Home(props) {
         }
       }` })
     })
-    
-    // Jeitos de escrever uma function:
-    
-    //Jeito comum:
-    //funtion (response) {
-    // return reponse json()
-    // }
-
-    // Jeito 2:
-    // (Response) => Response.json()
-
-    //Jeito 3:
-    // (Response) => {
-    //   console.log(respostaCompleta)
-
-    // }
 
     .then((response) => response.json()) // Pega o retorno da Response.json() e já retorna 
     .then((respostaCompleta) => {
@@ -165,7 +173,7 @@ export default function Home(props) {
             recados={getNumberRandom(1, 100)}
             fotos={getNumberRandom(1, 100)}
             videos={getNumberRandom(1, 100)}
-            fas={getNumberRandom(1, 100)}
+            fas={seguidores.length}
             mensagens={getNumberRandom(1, 100)}
             confiavel={getNumberRandom(1, 3)}
             legal={getNumberRandom(1, 3)}
@@ -273,30 +281,20 @@ export default function Home(props) {
               </button>
             </form>
           </Box>
+      
+      <RecadosBox title="Recados" items={recados}/>
 
-          <Box>
-          <h2 className='subTitle'>
-            Recados de {userGithub}
-          </h2>
-
-          <ul>
-            {recados.map((itemAtual) => {
-              return (
-                <li key={itemAtual.id}>
-                  {/* CRIAR UM COMPONENTE PARECIDO COM O PROFILE RELATIONS BOX
-                    FAZENDO ISSO IREI CONSEGUIR LISTAR OS RECADOS
-                  */}
-                </li>
-              )
-            })}
-          </ul>
-          </Box>
       </div>
+      {console.log('Recados 111:', recados)}
+
 
        {/* Área dos Seguidores      */}
       <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>    
       <ProfileRelationsBox title="Seguidores" items={seguidores} />
 
+      <ProfileRelationsBox title="Seguindo" items={seguindo} />
+
+      
         {/* Área das Comunidades */}
         <ProfileRelationsBoxWrapper>
         <h2 className="smallTitle">
@@ -320,32 +318,7 @@ export default function Home(props) {
             Ver todas
           </a>
         </p>
-        </ProfileRelationsBoxWrapper>
-  
-        <ProfileRelationsBoxWrapper>
-          <h2 className="smallTitle">
-            Seguindo ({pessoasFavoritas.length})
-          </h2>
-
-          <ul>
-            {pessoasFavoritas.slice(0, 6).map((itemAtual) => {
-              return (
-                <li key={itemAtual}>
-                  <a href={`/communities/${itemAtual.id}`}>
-                    <img src={`https://github.com/${itemAtual}.png`} />
-                    <span>{itemAtual}</span>
-                  </a>
-                </li>
-              )
-            })}
-          </ul>
-          <hr />
-          <p>
-            <a className="boxLink" href={`/seguindo`}>
-              Ver todos
-            </a>
-          </p>
-        </ProfileRelationsBoxWrapper>
+        </ProfileRelationsBoxWrapper> 
 
       </div>
 
