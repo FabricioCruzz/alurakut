@@ -138,7 +138,10 @@ export default function Home(props) {
     .then((response) => response.json()) // Pega o retorno da Response.json() e já retorna 
     .then((respostaCompleta) => {
       const comunidadesVindasDoDato = respostaCompleta.data.allCommunities;
+      const recadosVindosDoDato = respostaCompleta.data.allScraps;
       console.log("Comunidades Vindas do DATO:" + comunidadesVindasDoDato)
+      console.log("Recados Vindos do DATO:" + recadosVindosDoDato)
+      setRecados(recadosVindosDoDato)
       setComunidades(comunidadesVindasDoDato)
 
     })
@@ -170,7 +173,7 @@ export default function Home(props) {
             Bem vindo(a), {userGithub}
           </h1>
           <OrkutNostalgicIconSet
-            recados={getNumberRandom(1, 100)}
+            recados={recados.length}
             fotos={getNumberRandom(1, 100)}
             videos={getNumberRandom(1, 100)}
             fas={seguidores.length}
