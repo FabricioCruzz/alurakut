@@ -26,11 +26,12 @@ function ProfileSidebar(propriedades) {
 }
 
 function ProfileRelationsBox(propriedades){
-
+  console.log("Propriedades length: ", propriedades.items);
   return (
     <ProfileRelationsBoxWrapper>
         <h2 className="smallTitle">
-            {propriedades.title} ({propriedades.items.length}) {/* TODO: DESCOBRIR PQ O LIMITE DE SEGUIDORES VAI ATÉ 30 */}
+            {propriedades.title} ({propriedades.items.length}) {/* TODO: DESCOBRIR PQ O LIMITE DE SEGUIDORES VAI ATÉ 30------> É POR CAUSA DA API DO GITHUB QUE POR PADRÃO TRAZ 30 
+            POR PÁGINA (O MÁXIMO É DE 100 POR PAGINA) ------> USAR DEPOIS DE https:/blablabla/followers?per_page=100*/}
         </h2>
 
         <ul>
@@ -63,7 +64,7 @@ function RecadosBox(props){
   return (
     <RecadosBoxWrapper>
       <h2 className='subTitle'>
-            {props.title} de Alguém
+            {props.title}
       </h2>
 
           <ul>
@@ -71,11 +72,12 @@ function RecadosBox(props){
               console.log('itemAtual 222: ', itemAtual);
               return (
                 <li key={itemAtual.id}>
-                  <span> {itemAtual.from} diz: </span>  
-                  <span>{itemAtual.message} </span>
-                  {/* CRIAR UM COMPONENTE PARECIDO COM O PROFILE RELATIONS BOX
-                    FAZENDO ISSO IREI CONSEGUIR LISTAR OS RECADOS
-                  */}
+                  <a href={`https://github.com/${itemAtual.from}`}>
+                   <img src={`https://github.com/${itemAtual.from}.png`} style={{ borderRadius: '90px' }} />
+                  </a>
+                  <div> {itemAtual.from} diz:
+                    <p>{itemAtual.message} </p>
+                  </div>
                 </li>
               )
             })}
@@ -96,8 +98,8 @@ export default function Home(props) {
     // GET
     const urlUserFollowers = `https://api.github.com/users/${ userGithub }/followers`;
     fetch(urlUserFollowers)
-    .then(function (respostaDoServidor){
-      return respostaDoServidor.json();
+    .then(async function (respostaDoServidor){
+      return await respostaDoServidor.json();
     })
     .then(function(respostaCompleta){
       setSeguidores(respostaCompleta);
@@ -246,6 +248,7 @@ export default function Home(props) {
               console.log('Campo: ', dadosDoForm.get('message'));
 
               const recado = {
+                // TODO: COLOCAR UMA CHECAGEM PRA SABER SE O USUARIO COLOCADO REALMENTE EXISTE
                 from: dadosDoForm.get('from'),
                 message: dadosDoForm.get('message')
               }

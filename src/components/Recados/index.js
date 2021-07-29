@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import Box from '../Box';
 
 export const RecadosBoxWrapper = styled(Box)`
+    
     ul {
-        display: grid;
-        grid-gap: 8px;
-        grid-template-columns: 1fr 1fr 1fr; 
-        max-height: 220px;
-        list-style: none;
-    }
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            list-style: none;
+    } 
     img {
         object-fit: cover;
         background-position: center center;
@@ -16,15 +16,24 @@ export const RecadosBoxWrapper = styled(Box)`
         height: 100%;
         position: relative;
     } 
-    ul li a {
+    li {
+        display: flex;
+        padding: 10px 0;
+    }
+
+    div {
+        padding-left: 10px;
+    }
+    a {
         display: inline-block;
         height: 102px;
         position: relative;
         overflow: hidden;
-        border-radius: 8px;
+        border-radius: 90px;
         span {
             color: #DCDCDC;
             opacity: 95%;
+            padding: 14px 16px;
             font-size: 10px;
             position: absolute;
             left: 0;
